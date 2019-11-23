@@ -1,10 +1,11 @@
 module.exports={
   pages: {
     index: {
-        entry: './src/index/main.js'
+        entry: './src/index/index.js',
+        template: './src/index/index.html'
+    },
+    sat: {
+      entry: './src/sat/sat.js'
     }
   },
-  configureWebpack: config => {
-    void 0
-  }
 }
