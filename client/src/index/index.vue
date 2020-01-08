@@ -25,7 +25,13 @@
 import './assets/background.jpg'
 
 export default {
-
+  created() {
+    this.axios.get('/api/sentences', {
+      params: {
+        id: 1
+      }
+    })
+  }
 }
 </script>
 
