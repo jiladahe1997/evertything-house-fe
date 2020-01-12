@@ -5,12 +5,17 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dev": "egg-bin dev"
   },
   "dependencies": {
+    "aws-serverless-express": "^3.3.6",
     "axios": "^0.19.0",
     "core-js": "^3.3.2",
     "cos-nodejs-sdk-v5": "^2.5.14",
+    "egg": "^2.26.0",
+    "egg-bin": "^4.14.1",
+    "koa-better-http-proxy": "^0.2.4",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "vant": "^2.2.14",
