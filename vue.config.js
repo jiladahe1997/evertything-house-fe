@@ -5,7 +5,8 @@ module.exports={
         template: './client/src/index/index.html'
     },
     sat: {
-      entry: './client/src/sat/sat.js'
+      entry: './client/src/sat/sat.js',
+      template: './client/public/sat.html'
     }
   },
   devServer: {

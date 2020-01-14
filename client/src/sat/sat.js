@@ -1,3 +1,4 @@
+import "./sat.css"
 import Vue from 'vue'
 import sat from './sat.vue'
 
