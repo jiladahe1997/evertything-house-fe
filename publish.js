@@ -44,12 +44,12 @@ async function findAllFilePath(nowPath) {
     await Promise.all(filePaths.map(async filePath=>{
       if(filePath.indexOf('.') !== -1) {
         ret.push({
-          filePath:path.join(nowPath,filePath),
+          filePath:path.join(nowPath,filePath).replace(/\\/g,'/'),
           fileName:filePath
         })
       }
       else {
-        const subFilePaths = await findAllFilePath(path.join(nowPath,filePath))
+        const subFilePaths = await findAllFilePath(path.join(nowPath,filePath).replace(/\\/g,'/'))
         ret = Array.prototype.concat(ret,subFilePaths)
       }
     }))
