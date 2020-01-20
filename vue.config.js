@@ -1,3 +1,5 @@
+const config = require('config')
+
 module.exports={
   pages: {
     index: {
@@ -26,6 +28,8 @@ module.exports={
           console.log(`代理${req.host}${req.path}到${proxyReq.getHeader('host')}${proxyReq.path}`)
         }
       }
-    }
-  }
+    },
+    sockPort: 8080
+  },
+  publicPath: config.Client.webpack.publicPath
 }
