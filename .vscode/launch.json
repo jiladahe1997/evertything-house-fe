@@ -7,6 +7,13 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "node服务器调试",
+      "program": "${workspaceFolder}/server/app.js"
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
       "name": "发布调试",
       "program": "${workspaceFolder}/publish.js",
       "skipFiles": [
