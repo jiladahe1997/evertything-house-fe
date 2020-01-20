@@ -60,7 +60,7 @@
   }
 }
 .main {
-  height: 80vh;
+  height: 650px;
   background-image: url("https://sls-cloudfunction-ap-guangzhou-code-1256609098.cos.ap-guangzhou.myqcloud.com/backgroud.jpg");
   background-size:100% 100%;
 }
