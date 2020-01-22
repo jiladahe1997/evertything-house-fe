@@ -1,27 +1,15 @@
-// const Koa = require('koa')
-// const app = new Koa();
-// const proxy = require('@webserverless/fc-express')
-// const express = require('express')
-// const app2 = new express()
-
-
-// const routers= require('./server/router.js')
-// app2.get("/*", (req, res) => {
-//   res.send('hello world!');
-// });
-// app.use(routers.routes())
-
-// const server = new proxy.Server(app2);
-
-// module.exports.handler = function(req, res, context) {
-//   server.httpProxy(req, res, context);
-// };
 
 const Koa = require('koa')
 const app = new Koa
 const awsServerlessExpress = require('aws-serverless-express')
+const routers= require('./server/router.js')
+const logger = require('koa-logger')
 
-app.use(require('./server/router.js').routes())
+app.use(logger())
+app.use(routers.routes()).use(routers.allowedMethods()); 
+
 const server = awsServerlessExpress.createServer(app.callback())
 
-module.exports.handle = (event, context) => awsServerlessExpress.proxy(server, event, context, 'PROMISE').promise
+module.exports.handle = (event, context) => {
+  return awsServerlessExpress.proxy(server, event, context, 'PROMISE').promise
+}

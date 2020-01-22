@@ -1,4 +1,8 @@
+const config = require('config')
+const fs = require('fs')
 const path = require('path')
+
+fs.writeFileSync(path.resolve(__dirname, '../config/client.json'), JSON.stringify(config))
 
 module.exports = {
   mode: 'development',
@@ -6,6 +10,10 @@ module.exports = {
     serverlessEntry: path.resolve(__dirname, '../serverlessEntry')
   },
   target: "node",
+  node: {
+    __dirname: false,
+    __filename: false,
+  },
   output: {
     path: path.resolve(__dirname, '../serverDist'),
     filename: '[name].js',
@@ -15,18 +23,12 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        // exclude: /node_modules/,
-        // loader: 'babel-loader',
-        // options: {
-        //   presets: [['@babel/preset-env',{
-        //   //   // targets: {node: '8'},
-        //   //   // "shippedProposals": true
-        //   //   "useBuiltIns":"usage",
-        //   //   corejs:3
-        //   }]],
-        //   // "plugins": ["@babel/plugin-proposal-object-rest-spread",]
-        // }
       }
     ]
-  }
+  },
+  resolve: {
+    alias: {
+      config: path.resolve(__dirname, '../config/client.json')
+    }
+  },
 }

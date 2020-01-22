@@ -5,7 +5,7 @@ const cosProxy = proxy(
   config.Server.proxyFe.path,{
     port: config.Server.proxyFe.port,
     proxyReqPathResolver: function(ctx) {
-      return require('url').parse(ctx.url).path;
+      return config.Server.proxyFe.prefix + require('url').parse(ctx.url).path;
     }
   }
 )
