@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "cross-env NODE_ENV=prod vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "server-local": "nodemon  ./server/app.js",
+    "server-local": "cross-env NODE_ENV=local nodemon  ./server/app.js",
     "build-server": "cross-env NODE_ENV=prod webpack --config ./server/webpack.config.js "
   },
   "dependencies": {

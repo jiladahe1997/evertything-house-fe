@@ -2,7 +2,7 @@ Server:
   proxyFe:
     path: localhost
     port: 8080
-    prefix: 
+    prefix: ''
 
 Client:
   webpack:

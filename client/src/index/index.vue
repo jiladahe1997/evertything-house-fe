@@ -5,7 +5,7 @@
         <h1>欢迎来到jiladahe1997の站</h1>
       </div>
       <div class="menu">
-        <span>SAT</span>
+        <span><a href="/sat">SAT</a></span>
         <span>工作/学习</span>
         <span>动漫/壁纸</span>
       </div>

@@ -1,8 +1,10 @@
 const Koa = require('koa')
 const app = new Koa();
+const checkLogin = require('./middleware/checkLogin.js')
 
 const routers= require('./router.js')
 
+app.use(checkLogin)
 app.use(routers.routes()).use(routers.allowedMethods()); 
 
 app.listen(3000,()=>{
