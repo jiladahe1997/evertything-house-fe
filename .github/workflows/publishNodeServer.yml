@@ -15,9 +15,9 @@ jobs:
     - name: package server
       run: |
         npm install cross-env
-        cross-env NODE_ENV=prod webpack --config ./server/webpack.config.js
+        npm run build-server
         apt-get install zip
         zip -r index.zip ./serverDist/
     - name: publish
-      run: node ./publishNodeServer.js
+      run: node ./publishNodeServer.js 
     
