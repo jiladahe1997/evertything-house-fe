@@ -26,6 +26,7 @@
     "koa-router": "^7.4.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
+    "tencentcloud-sdk-nodejs": "^3.0.117",
     "vant": "^2.2.14",
     "vue": "^2.6.10"
   },
