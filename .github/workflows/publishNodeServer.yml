@@ -16,7 +16,7 @@ jobs:
       run: |
         npm install cross-env
         npm run build-server
-        apt-get install zip
+        sudo apt-get install zip
         zip -r index.zip ./serverDist/
     - name: publish
       run: node ./publishNodeServer.js 
