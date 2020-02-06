@@ -43,26 +43,26 @@ export default {
     padding: 1px; /*清除外边距塌陷 */
     margin-top: 93px;
     height: 390px;
-    background-image: url('./assets/background.jpg');
+    background-image: url('./assets/background1.jpg');
     background-position: center;
     background-repeat: no-repeat;
     h1 {
-      margin-top: 100px;
-      font-size: 45px;
+      margin-top: 15vh;
+      font-size: 2.5rem;
     }
   }
   .menu {
     display: flex;
-    margin-top: 30px;
+    margin-top: 5vh;
     justify-content: space-around;
   }
   .recommend {
-    margin-top: 40px;
+    margin-top: 6vh;
     background-color: #F7F7F7;
-    height: 200px;
+    height: 20vh;
     overflow: scroll;
     .recommend-item {
-      height: 150px;
+      height: 17vh;
     }
   }
 }
