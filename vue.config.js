@@ -6,6 +6,10 @@ module.exports={
         entry: './client/src/index/index.js',
         template: './client/src/index/index.html'
     },
+    video:{
+      entry: './client/src/video/main.js',
+      template: './client/src/index/index.html'
+    },
     sat: {
       entry: './client/src/sat/sat.js',
       template: './client/public/sat.html'

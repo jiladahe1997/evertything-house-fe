@@ -11,6 +11,10 @@ router.get("/sat", async (ctx,next)=>{
   ctx.url="/sat.html"
   await next()
 }, cosProxy, ()=>{})
+router.get("/video", async (ctx,next)=>{
+  ctx.url="/video.html"
+  await next()
+}, cosProxy, ()=>{})
 router.get('/*',cosProxy)
 
 module.exports=router
