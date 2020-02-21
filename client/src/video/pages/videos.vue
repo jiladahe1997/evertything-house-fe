@@ -1,21 +1,22 @@
 <template>
-  <div>
-    <van-tabs v-model="videoCatagory">
-      <van-tab v-for="(classification,inx) in classifications" :name=inx :key="inx" :title="classification">
+<div class="listbody">
+    <van-tabs v-model="videoCatagory" sticky  background="#EBEBEB"  color="#8C8CF0" title-inactive-color="#8C8C8C" title-active-color="#8C8CF0">
+      <van-tab  title-style="font-weight:bold" v-for="(classification,inx) in classifications" :name=inx :key="inx" :title="classification">
 
         <van-list
-          v-model="loading"
+          v-model="loading[videoCatagory]"
           :finished="finished[videoCatagory]"
           finished-text="没有更多视频啦"
           @load="onLoad"
         >
-          <van-cell v-for="(item,index) in list[videoCatagory]" :key="index" >
+        <!-- <van-cell v-for="(item,index) in list[videoCatagory]" :key="index" > -->
+          <div v-for="(item,index) in list[videoCatagory]" :key="index" >
             <div>
               <singleVideo :data="item"></singleVideo>
             </div>
-          </van-cell>>
+          </div>
+          <!-- </van-cell> -->
         </van-list>
-
       </van-tab>
     </van-tabs>
   </div>
@@ -24,6 +25,8 @@
 <script>
     import singleVideo from '../components/singleVideo'
     // var base="https://jiladahe1997.cn";
+    import axios from 'axios'
+    import Vue from 'vue'
 
    export default {
         components:{
@@ -43,72 +46,28 @@
                     [],
                     [],
                 ],
-                loading: false,
+                loading: [false,false,false,false,false],
                 finished: [false,false,false,false,false]
             };
         },
         methods: {
             onLoad() {
-                // 异步更新数据
-                // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-                // console.log("waimian"+this);
-                const xhr = new XMLHttpRequest()
-                xhr.open('get',"/api/videos"+'?page='+this.page[this.videoCatagory]+"&pageSize="+this.pageSize+"&catagory="+this.videoCatagory)
-                xhr.onreadystatechange=()=>{
-                    if(xhr.readyState== XMLHttpRequest.DONE) {
-                        if(xhr.status === 200) {
-                                    this.list[this.videoCatagory]=this.list[this.videoCatagory].concat(JSON.parse(xhr.responseText).data);
-                                    // console.log("limian"+this);
-                                    // console.log(JSON.parse(xhr.responseText).data);
-                                    this.page[this.videoCatagory]++;
-                                    if(JSON.parse(xhr.responseText).data.length<this.pageSize) {
-                                         this.finished[this.videoCatagory] = true;
-                                    }
-                            // switch(this.videoCatagory) {
-                            //     case 0:
-                            //         this.list.rainbowSixSeige=this.list.rainbowSixSeige.concat(JSON.parse(xhr.responseText).data);
-                            //         if(JSON.parse(xhr.responseText).data.length<10){
-                            //             this.finished = true;
-                            //         }
-                            //         listNow=list.rainbowSixSeige;
-                            //         break;
-                            //     case 1:
-                            //         this.list.battleField5=this.list.battleField5.concat(JSON.parse(xhr.responseText).data);
-                            //         if(JSON.parse(xhr.responseText).data.length<10){
-                            //             this.finished = true;
-                            //         }
-                            //         listNow=list.battleField5
-                            //         break;
-                            //     case 2:
-                            //         this.list.csGo=this.list.csGo.concat(JSON.parse(xhr.responseText).data);
-                            //         if(JSON.parse(xhr.responseText).data.length<10){
-                            //             this.finished = true;
-                            //         }
-                            //         listNow=list.csGo
-                            //         break;
-                            //     case 3:
-                            //         this.list.teamfightTactics=this.list.teamfightTactics.concat(JSON.parse(xhr.responseText).data);
-                            //         if(JSON.parse(xhr.responseText).data.length<10){
-                            //             this.finished = true;
-                            //         }
-                            //         listNow=list.teamfightTactics
-                            //         break;
-                            //     case 4:
-                            //         this.list.life=this.list.life.concat(JSON.parse(xhr.responseText).data);
-                            //         if(JSON.parse(xhr.responseText).data.length<10){
-                            //             this.finished = true;
-                            //         }
-                            //         listNow=list.life
-                            //         break;
-                            //     default:
-                            //         alert("分类不存在")
-                            // }
-                        }
+                
+                var that = this;
+                var catagoryNow=this.videoCatagory;
+                 axios.get("/api/videos"+'?page='+that.page[catagoryNow]+"&pageSize="+that.pageSize+"&catagory="+catagoryNow)
+                .then(function (response) {
+                  that.list[catagoryNow]=that.list[catagoryNow].concat(response.data.data);
+                  that.page[catagoryNow]++;
+                  Vue.set(that.loading,catagoryNow,false);
+                  if(response.data.data.length<that.pageSize){
+                      that.finished[catagoryNow] = true;
                     }
-                }
-                xhr.send()
-                // 加载状态结束
-                this.loading = false;
+                })
+                .catch(function () {
+                  // alert("请求失败请重试");
+                    Vue.set(that.loading,catagoryNow,false);
+                });
             }
         }
     }
@@ -116,5 +75,8 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.listbody{
+  background-color:#f7f8fa;
+  height: 100vh;
+}
 </style>

@@ -2,12 +2,12 @@
   <div>
     <div class="container">
       <div class="welcome">
-        <h1>欢迎来到jiladahe1997の站</h1>
+        <h1>欢迎来到阿春の站</h1>
       </div>
       <div class="menu">
         <span><a href="/sat">SAT</a></span>
-        <span>工作/学习</span>
-        <span>动漫/壁纸</span>
+        <span><a href="/video#/videos">视频</a></span>
+        <span><a href="/video#/videoUpload">视频上传</a></span>
       </div>
       <div class="recommend">
         <div class="recommend-item">

@@ -65,25 +65,14 @@
         <el-button type="primary" @click="submitForm('ruleForm')">点击上传</el-button>
       </el-form-item>
     </el-form>
-
-
-
-
   </div>
 </template>
 
 <script>
     var COS = require('cos-js-sdk-v5');
     import axios from 'axios'
-
-
         var cos = new COS({
         getAuthorization: function (options,callback) {
-            // 异步获取临时密钥
-            // console.log(options.Bucket);
-            // axios.get('/api/TencentCloudKey'+"?bucket=sls-cloudfunction-ap-guangzhou-code-1256609098&region=ap-guangzhou")
-            // console.log(options.Bucket);
-            // console.log(options.Region);
             axios.get('/api/TencentCloudKey'+'?bucket='+options.Bucket+'&region='+options.Region)   
                .then(function (response) {     
                     callback({
@@ -97,14 +86,6 @@
                 })
         }
     });
-         
-console.log(cos);
-console.log("!@#$$#@@#$$"+cos.SecretId);
-
-
-
-
-
     export default {
         name: 'videoUpload',
         data () {
