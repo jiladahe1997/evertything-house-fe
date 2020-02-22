@@ -17,7 +17,7 @@ jobs:
         npm install cross-env
         npm run build-server
         sudo apt-get install zip
-        zip -r index.zip ./serverDist/
+        zip -r index.zip ./serverDist/serverlessEntry.js 
     - name: publish
-      run: node ./publishNodeServer.js 
+      run: node ./publishNodeServer.js
     
