@@ -1,6 +1,6 @@
 <template>
-<div class="listbody">
-    <van-tabs v-model="videoCatagory" sticky  background="#EBEBEB"  color="#8C8CF0" title-inactive-color="#8C8C8C" title-active-color="#8C8CF0">
+<div class="bg">
+    <van-tabs  v-model="videoCatagory" sticky  background="#EBEBEB"  color="#8C8CF0" title-inactive-color="#8C8C8C" title-active-color="#8C8CF0">
       <van-tab  title-style="font-weight:bold" v-for="(classification,inx) in classifications" :name=inx :key="inx" :title="classification">
 
         <van-list
@@ -75,8 +75,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.listbody{
+.bg{
   background-color:#f7f8fa;
   height: 100vh;
 }
+
 </style>

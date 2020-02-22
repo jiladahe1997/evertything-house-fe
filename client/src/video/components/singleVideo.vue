@@ -50,13 +50,14 @@ transform: translateX(-50%);
 .title{
  text-align: center;
  font-size:14px;
+ width:18rem;
  color:#8C8C8C;
 }
 .card {
     margin-bottom: 1rem;
     margin-top: 1rem;
     padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
