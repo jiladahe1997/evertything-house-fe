@@ -2,10 +2,9 @@
   <div>
     <div class="container">
       <div class="welcome">
-        <h1>欢迎来到阿春の站</h1>
+        <h1>欢迎来到SATの站</h1>
       </div>
       <div class="menu">
-        <span><a href="/sat">SAT</a></span>
         <span><a href="/video#/videos">视频</a></span>
         <span><a href="/video#/videoUpload">视频上传</a></span>
       </div>

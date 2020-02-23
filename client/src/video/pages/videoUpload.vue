@@ -1,11 +1,11 @@
 <template>
   <div>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="视频名称" prop="name">
+      <el-form-item class="nameinput" label="视频名称" prop="name">
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
 
-      <el-form-item label="视频类别" prop="videoCatagory">
+      <el-form-item class="catagoryinput" label="视频类别" prop="videoCatagory">
         <el-select v-model="ruleForm.videoCatagory" placeholder="请选择视频类别">
           <el-option label="彩虹六号" value="0"></el-option>
           <el-option label="战地5" value="1"></el-option>
@@ -15,20 +15,14 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="视频简介" prop="introduction">
+      <el-form-item class="introductioninput" label="视频简介" prop="introduction">
         <el-input type="textarea" v-model="ruleForm.introduction"></el-input>
       </el-form-item>
 
-      <el-form-item label="视频链接" prop="videoUrl" v-show="false">
-        <el-input v-model="ruleForm.videoUrl"></el-input>
-      </el-form-item>
 
-      <el-form-item label="视频封面图" prop="imgUrl" v-show="false">
-        <el-input v-model="ruleForm.imgUrl"></el-input>
-      </el-form-item>
-
-      <el-row type="flex" class="row-bg" justify="space-around">
-        <el-col :span="8">
+      <el-row type="flex">
+        <el-col class="uploaddiv" :span="12">
+            <el-form-item label="" prop="imgUrl">
           <el-upload
             class="upload-demo"
             drag
@@ -39,11 +33,11 @@
             <div class="el-upload__text">将视频封面图片拖到此处，或点击上传</div>
             <div class="el-upload__tip" slot="tip">只能上传jpg/png文件</div>
           </el-upload>
-          <el-progress :text-inside="true" :stroke-width="20" :percentage="imgPercentage"></el-progress>
+          <el-progress class="progress" :text-inside="true" :stroke-width="20" :percentage="imgPercentage"></el-progress>
+          </el-form-item>
         </el-col>
-
-        <el-col :span="4"></el-col>
-        <el-col :span="8">
+        <el-col class="uploaddiv" :span="12">
+            <el-form-item label="" prop="videoUrl">
           <el-upload
             class="upload-demo"
             drag
@@ -54,7 +48,8 @@
             <div class="el-upload__text">将视频拖到此处，或点击上传</div>
             <div class="el-upload__tip" slot="tip">只能上传mp4文件</div>
           </el-upload>
-          <el-progress :text-inside="true" :stroke-width="20" :percentage="videoPercentage"></el-progress>
+          <el-progress class="progress" :text-inside="true" :stroke-width="20" :percentage="videoPercentage"></el-progress>
+        </el-form-item>
         </el-col>
       </el-row>
 
@@ -71,6 +66,7 @@
 <script>
     var COS = require('cos-js-sdk-v5');
     import axios from 'axios'
+    import { Loading } from 'element-ui';
         var cos = new COS({
         getAuthorization: function (options,callback) {
             axios.get('/api/TencentCloudKey'+'?bucket='+options.Bucket+'&region='+options.Region)   
@@ -102,7 +98,7 @@
                 rules: {
                     name: [
                         { required: true, message: '请输入视频名称', trigger: 'blur' },
-                        { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
+                        { min: 1, max: 30, message: '长度在 1 到 30 个字符', trigger: 'blur' }
                     ],
                     videoCatagory: [
                         { required: true, message: '请选择视频类别', trigger: 'change' }
@@ -110,7 +106,7 @@
 
                     introduction: [
                         { required: true, message: '请填写视频简介', trigger: 'blur' },
-                        { min: 1, max: 200, message: '长度在 1 到 200 个字符', trigger: 'blur' }
+                        { min: 1, max: 500, message: '长度在 1 到 500 个字符', trigger: 'blur' }
                     ],
 
                     videoUrl: [
@@ -195,7 +191,7 @@
                 var that =this;
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        
+                        let loadingInstance = Loading.service({fullscreen:true});
                         axios.post('/api/videoUpload',{
                             name:that.ruleForm.name,
                             videoCatagory:that.ruleForm.videoCatagory,
@@ -205,14 +201,13 @@
                             imgUrl: that.ruleForm.imgUrl
                         })
                             .then(function (res) {
+                                loadingInstance.close();
                                 console.log(res.status.code);
-                                alert('提交成功');
+                                alert('提交成功,点击回到首页');
+                                window.location.href="//jiladahe1997.cn";
                             })
                             .catch(function (error) {
-                    console.log("!!!!!!!!!!!!!!!!!!!!");   
-                    console.log(that.ruleForm); 
-                    console.log(error); 
-                    console.log("!!!!!!!!!!!!!!!!!!!!");     
+                               alert("提交失败，错误代码"+error);  
                             });
                     } else {
                         console.log('error submit!!');
@@ -223,8 +218,24 @@
         }
     }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.nameinput{
+    margin-top: 3rem;
+    width:30rem;
+}
+.catagoryinput{
+    width:16rem;
+}
+.introductioninput{
+    width:50rem;
+    height: 10rem;
+}
+.progress{
+    margin: 0.5rem auto 0 auto;
+    width: 40rem;
+}
+.uploaddiv{
+    text-align: center;
+}
 </style>

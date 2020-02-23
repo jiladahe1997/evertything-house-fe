@@ -1,6 +1,7 @@
 <template>
 <div class="bg">
-    <van-tabs  v-model="videoCatagory" sticky  background="#EBEBEB"  color="#8C8CF0" title-inactive-color="#8C8C8C" title-active-color="#8C8CF0">
+  <videoHeader></videoHeader>
+    <van-tabs  v-model="videoCatagory" sticky  background="#EBEBEB"  color="#e6d933" title-inactive-color="#8C8C8C" title-active-color="#e6d933">
       <van-tab  title-style="font-weight:bold" v-for="(classification,inx) in classifications" :name=inx :key="inx" :title="classification">
 
         <van-list
@@ -24,13 +25,14 @@
 
 <script>
     import singleVideo from '../components/singleVideo'
-    // var base="https://jiladahe1997.cn";
+    import videoHeader from '../components/videoHeader'
     import axios from 'axios'
     import Vue from 'vue'
 
    export default {
         components:{
             singleVideo,
+            videoHeader,
         },
         data() {
             return {
