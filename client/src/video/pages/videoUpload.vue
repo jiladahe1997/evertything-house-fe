@@ -1,6 +1,35 @@
 <template>
   <div>
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+
+<van-row class="bg" type="flex" justify="center">
+  <van-col span="4" display:inline-block>
+ <van-image
+  width="7.5rem"
+  height="3rem"
+  :src = logo
+  class="logo"
+/>
+</van-col>
+
+  <van-col span="8" display:inline-block>
+<div class="logotext" >创作中心</div>
+</van-col>
+  
+  <van-col class="useravatar" span="12">
+    <van-image 
+    class="avatar"
+    round
+    width="2.6rem"
+    height="2.6rem"
+    fit="fill"
+    :src="useravatar"
+/></van-col>
+</van-row>
+
+    <el-row>
+  <el-col :span="6"><br></el-col>
+  <el-col :span="12">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" label-position="top">
       <el-form-item class="nameinput" label="视频名称" prop="name">
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
@@ -20,10 +49,9 @@
       </el-form-item>
 
 
-      <el-row type="flex">
-        <el-col class="uploaddiv" :span="12">
-            <el-form-item label="" prop="imgUrl">
+            <el-form-item label="图片封面" prop="imgUrl">
           <el-upload
+            :limit="1"
             class="upload-demo"
             drag
             action=""
@@ -35,10 +63,10 @@
           </el-upload>
           <el-progress class="progress" :text-inside="true" :stroke-width="20" :percentage="imgPercentage"></el-progress>
           </el-form-item>
-        </el-col>
-        <el-col class="uploaddiv" :span="12">
-            <el-form-item label="" prop="videoUrl">
+
+        <el-form-item label="视频上传" prop="videoUrl">
           <el-upload
+            :limit="1"
             class="upload-demo"
             drag
             action=""
@@ -50,16 +78,18 @@
           </el-upload>
           <el-progress class="progress" :text-inside="true" :stroke-width="20" :percentage="videoPercentage"></el-progress>
         </el-form-item>
-        </el-col>
-      </el-row>
-
-      <br>
-      <br>
 
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">点击上传</el-button>
       </el-form-item>
     </el-form>
+
+  </el-col>
+  <el-col :span="6"><br></el-col>
+</el-row>
+
+
+
   </div>
 </template>
 
@@ -80,12 +110,16 @@
                         ExpiredTime: response.data.data.expiredTime
                     });
                 })
+                console.log("获取签名")
         }
     });
     export default {
         name: 'videoUpload',
         data () {
             return {
+                usernickname: '',
+                useravatar: '',
+                logo:require("../assets/logo.png"),
                 videoPercentage:0,
                 imgPercentage:0,
                 ruleForm: {
@@ -94,6 +128,8 @@
                     introduction: '',
                     videoUrl:"",
                     imgUrl:"",
+                    videoKey:"",
+                    imgKey:"",
                 },
                 rules: {
                     name: [
@@ -118,7 +154,35 @@
                 }
             };
         },
+          async created() {
+         // 向服务器请求id和头像
+        const res = await this.axios.get('/api/getUserInfo')
+        this.usernickname = res.data.nickname
+        this.useravatar = res.data.figureurl
+       },
         methods:{
+            // videoRemove(){
+            //     var that=this;
+            //     cos.deleteObject({
+            //     Bucket: 'sls-cloudfunction-ap-guangzhou-code-1256609098', /* 必须 */
+            //     Region: 'ap-guangzhou',     /* 存储桶所在地域，必须字段 */
+            //     Key: that.videoKey,        /* 必须 */
+            //     }, function(err, data) {
+            //     console.log(that.videoKey);
+            //     console.log(err || data);
+            //    });
+            // },
+            // imgRemove(){
+            //     var that=this;
+            //     cos.deleteObject({
+            //     Bucket: 'sls-cloudfunction-ap-guangzhou-code-1256609098', /* 必须 */
+            //     Region: 'ap-guangzhou',     /* 存储桶所在地域，必须字段 */
+            //     Key: that.imgKey,        /* 必须 */
+            //     }, function(err, data) {
+            //     console.log(that.imgKey);
+            //     console.log(err || data);
+            //    });
+            // },
             beforeImgUpload (file) {
                 var imgName = file.name;
                 var idx = imgName.lastIndexOf(".");
@@ -127,32 +191,30 @@
                     ext = ext.toLowerCase( );
                     if (ext!='jpg' && ext!='png'){
                         this.$message.error('只能上传jpg/png文件')
+                        return false
                     }else{
                         return true;
                     }
                 }else{
                     this.$message.error('只能上传jpg/png文件')
+                    return false
                 }
             },
             imgUpload(item){
                 var that=this;
+                this.imgKey=Number(Math.random().toString().substr(3, 3) + Date.now()).toString(36)+item.file.name;
                 cos.putObject({
                     Bucket: 'sls-cloudfunction-ap-guangzhou-code-1256609098', /* 必须 */
                     Region: 'ap-guangzhou',     /* 存储桶所在地域，必须字段 */
-                    Key: Number(Math.random().toString().substr(3, 3) + Date.now()).toString(36)+item.file.name,              /* 必须 */
+                    Key: that.imgKey,              /* 必须 */
                     StorageClass: 'STANDARD',
                     Body: item.file, // 上传文件对象
                     onProgress: function(progressData) {
-                        console.log(JSON.stringify(progressData));
-                        console.log("**********progress************");
                         that.imgPercentage=progressData.percent*100;
                     }
                 }, function(err, data) {
-                    console.log(err || data);
-                    console.log(cos);
-                    console.log(err);
-                    console.log("**********result************");
                     that.ruleForm.imgUrl=data.Location;
+                    console.log(data);
                 });
             },
 
@@ -164,23 +226,25 @@
                     ext = ext.toLowerCase( );
                     if (ext!='mp4'){
                         this.$message.error('只能上传mp4文件')
+                        return false
                     }else{
                         return true;
                     }
                 }else{
                     this.$message.error('只能上传mp4文件')
+                    return false
                 }
                 },
             videoUpload(item){
                 var that=this;
+                this.videoKey=Number(Math.random().toString().substr(3, 3) + Date.now()).toString(36)+item.file.name;
                 cos.putObject({
                     Bucket: 'sls-cloudfunction-ap-guangzhou-code-1256609098', /* 必须 */
                     Region: 'ap-guangzhou',     /* 存储桶所在地域，必须字段 */
-                    Key: Number(Math.random().toString().substr(3, 3) + Date.now()).toString(36)+item.file.name,              /* 必须 */
+                    Key: that.videoKey,              /* 必须 */
                     StorageClass: 'STANDARD',
                     Body: item.file, // 上传文件对象
                     onProgress: function(progressData) {
-                        console.log(JSON.stringify(progressData));
                         that.videoPercentage=progressData.percent*100;
                     }
                 }, function(err, data) {
@@ -195,22 +259,19 @@
                         axios.post('/api/videoUpload',{
                             name:that.ruleForm.name,
                             videoCatagory:that.ruleForm.videoCatagory,
-                            // introduction: that.ruleForm.introduction,
                             introduction: that.ruleForm.introduction,
                             videoUrl:that.ruleForm.videoUrl,
                             imgUrl: that.ruleForm.imgUrl
                         })
-                            .then(function (res) {
+                            .then(function () {
                                 loadingInstance.close();
-                                console.log(res.status.code);
-                                alert('提交成功,点击回到首页');
+                                that.$message.success('提交成功,回到首页')
                                 window.location.href="//jiladahe1997.cn";
                             })
                             .catch(function (error) {
-                               alert("提交失败，错误代码"+error);  
+                                that.$message.error("提交失败，错误代码"+error)
                             });
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });
@@ -228,14 +289,37 @@
     width:16rem;
 }
 .introductioninput{
-    width:50rem;
+    width:45rem;
     height: 10rem;
 }
 .progress{
-    margin: 0.5rem auto 0 auto;
     width: 40rem;
+    vertical-align: 0%;
 }
-.uploaddiv{
-    text-align: center;
+.title{
+    color:#c2b82c;
+    font-weight:bold;
+    font-size: 32px;
+}
+
+.bg{
+    background-color: #EBEBEB
+}
+.logo{
+    margin-top: 0.3rem;
+    margin-left: 0.5rem;
+}
+.useravatar{
+    text-align: right;
+}
+.avatar{
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+}
+.logotext{
+    font-size: 2rem;
+    font-weight: bold;
+    color: #dbd79d;
+    margin-top: 0.7rem;
 }
 </style>

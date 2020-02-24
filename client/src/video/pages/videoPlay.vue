@@ -102,9 +102,9 @@ color:#8C8C8C;
 }
 .author{
     margin-top: 0.8rem;
-    font-size:10px;
-color:#000000;
-line-height:2.6rem
+    font-size:13px;
+    color:#000000;
+    line-height:2.6rem
 }
 .line{
   margin-left: 1rem;

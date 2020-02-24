@@ -42,26 +42,23 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.img{
-position: relative;
-left: 50%;
-transform: translateX(-50%);
-}
 .title{
- text-align: center;
  font-size:14px;
- width:18rem;
  color:#8C8C8C;
-}
+ margin-left: 1rem;
+ margin-right: 1rem;
+} 
 .card {
     margin-bottom: 1rem;
     margin-top: 1rem;
     padding-top: 1rem;
     padding-bottom: 0.5rem;
+
     position: relative;
     left: 50%;
     transform: translateX(-50%);
 
+    text-align: center;
     width:20rem;
     background-color: #fff;
     border-radius: 0.8rem;

@@ -1,7 +1,7 @@
 <template>
 <div class="bg">
   <videoHeader></videoHeader>
-    <van-tabs  v-model="videoCatagory" sticky  background="#EBEBEB"  color="#e6d933" title-inactive-color="#8C8C8C" title-active-color="#e6d933">
+    <van-tabs  v-model="videoCatagory" sticky  background="#EBEBEB"  color="#dbd79d" title-inactive-color="#8C8C8C" title-active-color="#dbd79d">
       <van-tab  title-style="font-weight:bold" v-for="(classification,inx) in classifications" :name=inx :key="inx" :title="classification">
 
         <van-list
