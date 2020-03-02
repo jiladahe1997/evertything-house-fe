@@ -36,9 +36,9 @@
         },
         data() {
             return {
-                classifications:["彩虹六号","战地5","CSGO","云顶之弈","日常生活"],
+                classifications:["彩虹六号","战地5","CSGO","云顶之弈","日常生活","鬼畜搞笑"],
                 videoCatagory:0,
-                page:[0,0,0,0,0],
+                page:[0,0,0,0,0,0],
                 pageSize:10,
 
                 list: [
@@ -47,9 +47,10 @@
                     [],
                     [],
                     [],
+                    [],
                 ],
-                loading: [false,false,false,false,false],
-                finished: [false,false,false,false,false]
+                loading: [false,false,false,false,false,false],
+                finished: [false,false,false,false,false,false]
             };
         },
         methods: {

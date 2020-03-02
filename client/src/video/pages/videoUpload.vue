@@ -41,6 +41,7 @@
           <el-option label="CSGO" value="2"></el-option>
           <el-option label="云顶之奕" value="3"></el-option>
           <el-option label="日常生活" value="4"></el-option>
+          <el-option label="鬼畜搞笑" value="5"></el-option>
         </el-select>
       </el-form-item>
 
@@ -202,7 +203,7 @@
             },
             imgUpload(item){
                 var that=this;
-                this.imgKey=Number(Math.random().toString().substr(3, 3) + Date.now()).toString(36)+item.file.name;
+                this.imgKey='temp/'+Number(Math.random().toString().substr(3, 3) + Date.now()).toString(36)+item.file.name;
                 cos.putObject({
                     Bucket: 'sls-cloudfunction-ap-guangzhou-code-1256609098', /* 必须 */
                     Region: 'ap-guangzhou',     /* 存储桶所在地域，必须字段 */
@@ -237,7 +238,7 @@
                 },
             videoUpload(item){
                 var that=this;
-                this.videoKey=Number(Math.random().toString().substr(3, 3) + Date.now()).toString(36)+item.file.name;
+                this.videoKey='temp/'+Number(Math.random().toString().substr(3, 3) + Date.now()).toString(36)+item.file.name;
                 cos.putObject({
                     Bucket: 'sls-cloudfunction-ap-guangzhou-code-1256609098', /* 必须 */
                     Region: 'ap-guangzhou',     /* 存储桶所在地域，必须字段 */
