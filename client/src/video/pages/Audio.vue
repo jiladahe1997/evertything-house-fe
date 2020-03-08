@@ -51,6 +51,7 @@
 import dayjs from 'dayjs'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
+import 'videojs-errors';
 import videoHeader from '../components/videoHeader.vue'
 import Footer from '../components/Footer.vue'
 
@@ -81,6 +82,19 @@ export default {
       poster: 'https://s2.ax1x.com/2020/03/08/3xhyq0.jpg'
     }, function onPlayerReady() {
       // this.play()
+      // this.on('error', function(){
+      //   this.error(null)
+      //   // this.error('111')
+      // })
+    }).errors({
+      errors: {
+        4: {
+          headline: '当前没有直播源，请联系BG开启直播',
+          message :'',
+          code:'',
+          details:''
+        }
+      }
     })
     this.$nextTick(()=>{
       if(videojs.getPlayer('video').paused()){
@@ -148,6 +162,9 @@ export default {
 
 /deep/ .vjs-big-play-button 
 {
+  display: none;
+}
+/deep/ .vjs-error-display::before {
   display: none;
 }
 </style>
