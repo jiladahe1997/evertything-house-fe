@@ -51,7 +51,7 @@
 import dayjs from 'dayjs'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
-// import 'videojs-errors';
+import 'videojs-errors';
 import videoHeader from '../components/videoHeader.vue'
 import Footer from '../components/Footer.vue'
 
@@ -87,16 +87,16 @@ export default {
       //   // this.error('111')
       // })
     })
-    // .errors({
-    //   errors: {
-    //     4: {
-    //       headline: '当前没有直播源，请联系BG开启直播',
-    //       message :'',
-    //       code:'',
-    //       details:''
-    //     }
-    //   }
-    // })
+    .errors({
+      errors: {
+        4: {
+          headline: '当前没有直播源，请联系BG开启直播',
+          message :'',
+          code:'',
+          details:''
+        }
+      }
+    })
     this.$nextTick(()=>{
       if(videojs.getPlayer('video').paused()){
         this.status = 'paused'
