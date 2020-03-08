@@ -6,6 +6,7 @@
       </div>
       <div class="menu">
         <span><a href="/video#/videos">视频</a></span>
+        <span><a href="/video#/audio">音乐共享</a></span>
         <span><a href="/video#/videoUpload">视频上传</a></span>
       </div>
       <div class="recommend">

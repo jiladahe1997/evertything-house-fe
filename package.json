@@ -18,6 +18,7 @@
     "cos-js-sdk-v5": "^0.5.22",
     "cos-nodejs-sdk-v5": "^2.5.14",
     "cross-env": "^6.0.3",
+    "dayjs": "^1.8.22",
     "egg": "^2.26.0",
     "element-ui": "^2.13.0",
     "express": "^4.17.1",
@@ -44,6 +45,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "nodemon": "^2.0.2",
+    "video.js": "^7.6.6",
     "vue-template-compiler": "^2.6.10",
     "webpack-cli": "^3.3.10"
   }

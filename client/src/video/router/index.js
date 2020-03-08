@@ -4,6 +4,7 @@ import home from '../pages/home'
 import videos from '../pages/videos'
 import videoPlay from '../pages/videoPlay'
 import videoUpload from '../pages/videoUpload'
+import Audio from '../pages/Audio'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/videoUpload',
       name: 'videoUpload',
       component: videoUpload
+    },
+    {
+      path: '/audio',
+      name: 'audio',
+      component: Audio
     }
   ]
 })
