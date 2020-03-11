@@ -9,9 +9,13 @@
         data-setup="{}"
       >
         <source
-          src="/api/music/stream/audio.m3u8"
+          src="https://v5a0.cn/live/test.m3u8"
           type="application/x-mpegURL"
         >
+        <!-- <source
+          src="/api/music/stream/audio.m3u8"
+          type="application/x-mpegURL"
+        > -->
       </video>
       <div class="text">
         {{ time }}
