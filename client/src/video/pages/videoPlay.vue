@@ -1,7 +1,7 @@
 <template>
   <div class="bg">
     <videoHeader></videoHeader>
-    <video style="width:100%" controls :src="'https://'+videoData.videoUrl"></video>
+    <div id="dplayer" style="width:100%"></div>
       <van-row type="flex">
         <van-col class="avatar" span="4">
           <van-image
@@ -26,6 +26,9 @@
     import axios from 'axios'
     import { Image } from 'vant';
     import videoHeader from '../components/videoHeader'
+    import 'dplayer/dist/DPlayer.min.css';
+    import DPlayer from 'dplayer';
+
     // var base="jiladahe1997.cn";
 
     Vue.use(Image);
@@ -57,6 +60,14 @@
             axios.get("/api/videoPlay"+'?id='+that.videoId)
                 .then(function (response) {
                     that.videoData=response.data.data;
+                    new DPlayer({
+                        container: document.getElementById('dplayer'),
+                        video: {
+                          url: 'https://'+that.videoData.videoUrl,
+                          pic: 'https://'+that.videoData.imgUrl,
+                         },
+                    });
+
                 })
                 .catch(function (error) {
                     console.log(error);
