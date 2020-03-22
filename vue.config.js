@@ -6,6 +6,10 @@ module.exports={
         entry: './client/src/index/index.js',
         template: './client/src/index/index.html'
     },
+    video:{
+      entry: './client/src/video/main.js',
+      template: './client/src/index/index.html'
+    },
     sat: {
       entry: './client/src/sat/sat.js',
       template: './client/public/sat.html'
@@ -13,6 +17,12 @@ module.exports={
   },
   devServer: {
     proxy: {
+      '/api/music/stream': {
+        target: 'http://115.29.240.154/',
+        onProxyReq: (proxyReq, req, res)=> {
+          console.log(`代理${req.host}${req.path}到${proxyReq.getHeader('host')}${proxyReq.path}`)
+        }      
+      },
       '/api': {
         target: 'https://1288701826419188.cn-hangzhou.fc.aliyuncs.com/2016-08-15/proxy/everything-house/everything-house/',
         pathRewrite: (path, req)=> {

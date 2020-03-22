@@ -107,8 +107,8 @@ export default {
 <style lang="less" scoped>
 .header {
   width: 100%;
-  height: 48px;
-  line-height: 48px;
+  height: 7vh;
+  line-height: 3rem;
   display: flex;
   justify-content: space-evenly;
   position: fixed;
@@ -119,13 +119,13 @@ export default {
   span {
     display: inline-block;
     &:nth-of-type(2n+1) {
-      height: 48px;
+      height: 3rem;
     }
   }
 }
 .headerDropdown {
   position: fixed;
-  top: 48px;
+  top: 3rem;
   overflow: hidden;
 }
 .main {

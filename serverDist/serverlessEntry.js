@@ -1710,7 +1710,7 @@ eval("\n\nclass LRU {\n  constructor(max) {\n    this.max = max;\n    this.size 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = async (ctx, next) => {\r\n  if(!ctx.cookies.get('_j_token')){\r\n    ctx.redirect(\"https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101833914&redirect_uri=https://jiladahe1997.cn/qqlogin/callback\")\r\n  } else {\r\n    await next()\r\n  }\r\n}\n\n//# sourceURL=webpack:///./server/middleware/checkLogin.js?");
+eval("module.exports = async (ctx, next) => {\r\n  if(!ctx.cookies.get('_j_token') && \"development\" !== 'local'){\r\n    ctx.redirect(\"https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101833914&redirect_uri=https://jiladahe1997.cn/qqlogin/callback\")\r\n  } else {\r\n    await next()\r\n  }\r\n}\n\n//# sourceURL=webpack:///./server/middleware/checkLogin.js?");
 
 /***/ }),
 
@@ -1732,7 +1732,7 @@ eval("const proxy = __webpack_require__(/*! koa-better-http-proxy */ \"./node_mo
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var Router = __webpack_require__(/*! koa-router */ \"./node_modules/koa-router/lib/router.js\");\r\nvar router = new Router();\r\nconst cosProxy = __webpack_require__(/*! ./middleware/proxyToCos */ \"./server/middleware/proxyToCos.js\")\r\n\r\nrouter.get(\"/\", ctx=>ctx.redirect(\"/index\"))\r\nrouter.get(\"/index\", async (ctx,next)=>{\r\n  ctx.url=\"/index.html\"\r\n  await next()\r\n}, cosProxy, ()=>{})\r\nrouter.get(\"/sat\", async (ctx,next)=>{\r\n  ctx.url=\"/sat.html\"\r\n  await next()\r\n}, cosProxy, ()=>{})\r\nrouter.get('/*',cosProxy)\r\n\r\nmodule.exports=router\n\n//# sourceURL=webpack:///./server/router.js?");
+eval("var Router = __webpack_require__(/*! koa-router */ \"./node_modules/koa-router/lib/router.js\");\r\nvar router = new Router();\r\nconst cosProxy = __webpack_require__(/*! ./middleware/proxyToCos */ \"./server/middleware/proxyToCos.js\")\r\n\r\nrouter.get(\"/\", ctx=>ctx.redirect(\"/index\"))\r\nrouter.get(\"/index\", async (ctx,next)=>{\r\n  ctx.url=\"/index.html\"\r\n  await next()\r\n}, cosProxy, ()=>{})\r\nrouter.get(\"/sat\", async (ctx,next)=>{\r\n  ctx.url=\"/sat.html\"\r\n  await next()\r\n}, cosProxy, ()=>{})\r\nrouter.get(\"/video\", async (ctx,next)=>{\r\n  ctx.url=\"/video.html\"\r\n  await next()\r\n}, cosProxy, ()=>{})\r\nrouter.get('/*',cosProxy)\r\n\r\nmodule.exports=router\r\n\n\n//# sourceURL=webpack:///./server/router.js?");
 
 /***/ }),
 

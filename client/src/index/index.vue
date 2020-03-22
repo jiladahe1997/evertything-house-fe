@@ -2,12 +2,12 @@
   <div>
     <div class="container">
       <div class="welcome">
-        <h1>欢迎来到jiladahe1997の站</h1>
+        <h1>欢迎来到SATの站</h1>
       </div>
       <div class="menu">
-        <span><a href="/sat">SAT</a></span>
-        <span>工作/学习</span>
-        <span>动漫/壁纸</span>
+        <span><a href="/video#/videos">视频</a></span>
+        <span><a href="/video#/audio">音乐共享</a></span>
+        <span><a href="/video#/videoUpload">视频上传</a></span>
       </div>
       <div class="recommend">
         <div class="recommend-item">
@@ -43,26 +43,26 @@ export default {
     padding: 1px; /*清除外边距塌陷 */
     margin-top: 93px;
     height: 390px;
-    background-image: url('./assets/background.jpg');
+    background-image: url('./assets/background1.jpg');
     background-position: center;
     background-repeat: no-repeat;
     h1 {
-      margin-top: 100px;
-      font-size: 45px;
+      margin-top: 15vh;
+      font-size: 2.5rem;
     }
   }
   .menu {
     display: flex;
-    margin-top: 30px;
+    margin-top: 5vh;
     justify-content: space-around;
   }
   .recommend {
-    margin-top: 40px;
+    margin-top: 6vh;
     background-color: #F7F7F7;
-    height: 200px;
+    height: 20vh;
     overflow: scroll;
     .recommend-item {
-      height: 150px;
+      height: 17vh;
     }
   }
 }
