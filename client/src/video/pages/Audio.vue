@@ -21,6 +21,23 @@
         {{ time }}
       </div>
     </div>
+    <div class="onlineContainer">
+      <span>当前在线：</span>
+      <span
+        v-for="(item,index) in onlineList"
+        :key="index"
+        class="onlineStatistic"
+      >
+        <van-image 
+          class="avatar"
+          round
+          width="2.6rem"
+          height="2.6rem"
+          fit="fill"
+          :src="item.useravatar"
+        />
+      </span>
+    </div>
     <div class="actionContainer">
       <img
         class="refresh"
@@ -58,6 +75,7 @@ import 'video.js/dist/video-js.css'
 import 'videojs-errors';
 import videoHeader from '../components/videoHeader.vue'
 import Footer from '../components/Footer.vue'
+import _ from 'lodash'
 
 export default {
   components:{
@@ -67,7 +85,11 @@ export default {
   data(){
     return {
       status: 'playing',
-      time: ''
+      time: '',
+      usernickname: '',
+      useravatar: '',
+      onlineList:[],
+      ws: null
     }
   },
   computed:{
@@ -77,6 +99,21 @@ export default {
     isPlaying() {
       return this.status === 'playing'
     }
+  },
+  async created(){
+    const res = await this.axios.get('/api/getUserInfo')
+    this.usernickname = res.data.nickname
+    this.useravatar = res.data.figureurl
+    this.onlineList.push({
+      usernickname: res.data.nickname,
+      useravatar:res.data.figureurl
+    })
+    const ws = new WebSocket('wss://jiladahe1997.cn/ws/onlineStatistics');
+    this.ws = ws
+    setTimeout(this.onlineStatistic,30000)
+
+    ws.onmessage = this.onWebSocketMessageHandle
+
   },
   mounted() {
     videojs('video',{
@@ -123,6 +160,21 @@ export default {
     },
     refresh(){
       window.location.reload()
+    },
+    onlineStatistic() {
+      this.ws.send(JSON.stringify({
+        usernickname: this.usernickname,
+        useravatar: this.useravatar
+      }))
+      setTimeout(this.onlineStatistic,30000)
+    },
+    onWebSocketMessageHandle(data) {
+      const recvData = JSON.parse(JSON.parse(data.data).message)
+      this.onlineList.push({
+        usernickname: recvData.usernickname,
+        useravatar: recvData.useravatar
+      })
+      this.onlineList = _.uniqBy(this.onlineList, (v)=>v.usernickname)
     }
   }
 }
@@ -138,7 +190,6 @@ export default {
   flex-wrap: wrap;
   background-color:#8B8D92;
   padding-top: 4vh;
-  margin-bottom: 10vh;
   .video-js {
     display: inline-block;
     height: 30vh;
@@ -149,6 +200,14 @@ export default {
     color: white;
   }
 }
+
+.onlineContainer{
+  margin-bottom: 5vh;
+  display: flex;
+  padding: 0 6vw;
+  align-items: center;
+}
+
 .actionContainer {
   display: flex;
   justify-content: space-between;;
@@ -163,6 +222,9 @@ export default {
     width:100px;
     height: 100px;
   }
+}
+.onlineStatistic {
+  text-align: center;
 }
 
 /deep/ .vjs-big-play-button 
