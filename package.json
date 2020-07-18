@@ -30,7 +30,7 @@
     "koa-router": "^7.4.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "tencentcloud-sdk-nodejs": "^3.0.117",
     "vant": "^2.5.3",
     "videojs-errors": "^4.3.1",
