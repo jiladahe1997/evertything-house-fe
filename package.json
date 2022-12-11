@@ -22,7 +22,7 @@
     "dplayer": "^1.25.0",
     "egg": "^2.26.0",
     "element-ui": "^2.13.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "http-proxy-middleware": "^0.20.0",
     "koa": "^2.11.0",
     "koa-better-http-proxy": "^0.2.4",
